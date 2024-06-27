@@ -1,5 +1,5 @@
 // @ts-ignore
-import { connect } from 'cloudflare:sockets';
+// import { connect } from 'cloudflare:sockets';
 
 // How to generate your own UUID:
 // [Windows] Press "Win + R", input cmd and run:  Powershell -NoExit -Command "[guid]::NewGuid()"
@@ -255,19 +255,19 @@ async function handleTCPOutBound(remoteSocket, addressRemote, portRemote, rawCli
 	 * @param {number} port The port to connect to.
 	 * @returns {Promise<import("@cloudflare/workers-types").Socket>} A Promise that resolves to the connected socket.
 	 */
-	async function connectAndWrite(address, port) {
-		/** @type {import("@cloudflare/workers-types").Socket} */
-		const tcpSocket = connect({
-			hostname: address,
-			port: port,
-		});
-		remoteSocket.value = tcpSocket;
-		log(`connected to ${address}:${port}`);
-		const writer = tcpSocket.writable.getWriter();
-		await writer.write(rawClientData); // first write, nomal is tls client hello
-		writer.releaseLock();
-		return tcpSocket;
-	}
+	// async function connectAndWrite(address, port) {
+	// 	/** @type {import("@cloudflare/workers-types").Socket} */
+	// 	const tcpSocket = connect({
+	// 		hostname: address,
+	// 		port: port,
+	// 	});
+	// 	remoteSocket.value = tcpSocket;
+	// 	log(`connected to ${address}:${port}`);
+	// 	const writer = tcpSocket.writable.getWriter();
+	// 	await writer.write(rawClientData); // first write, nomal is tls client hello
+	// 	writer.releaseLock();
+	// 	return tcpSocket;
+	// }
 
 	/**
 	 * Retries connecting to the remote address and port if the Cloudflare socket has no incoming data.
